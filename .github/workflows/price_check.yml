@@ -1,0 +1,49 @@
+name: Price Check
+
+on:
+  schedule:
+    # Run daily at midnight UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  check-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download price database
+        # Persist the SQLite DB across runs via artifacts
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          name: price-tracker-db
+          path: .
+          if_no_artifact_found: warn
+        continue-on-error: true
+
+      - name: Run price checks
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        run: python main.py check
+
+      - name: Upload price database
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-tracker-db
+          path: price_tracker.db
+          retention-days: 90
+          if-no-files-found: warn
