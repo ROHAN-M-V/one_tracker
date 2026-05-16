@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Price Tracker — CLI entry point.
+one_tracker — CLI entry point.
 
 Commands
 --------
@@ -58,7 +58,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("price_tracker")
+logger = logging.getLogger("one_tracker")
 
 
 # ---------------------------------------------------------------------------
@@ -327,8 +327,8 @@ def _trigger_alert(product_id: int, current_price: float) -> bool:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="price-tracker",
-        description="🏷️  Price Tracker — Monitor product prices and get alerted on drops.",
+        prog="one_tracker",
+        description="★  one_tracker — monitor product prices, get alerted on drops.",
     )
     sub = parser.add_subparsers(dest="command", help="Available commands")
 

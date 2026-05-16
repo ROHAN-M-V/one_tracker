@@ -1,5 +1,5 @@
 """
-Price Tracker — Flask API Server.
+one_tracker — Flask API Server.
 
 Serves both the REST API and the static frontend.
 Run with: python server.py
@@ -52,7 +52,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("price_tracker.server")
+logger = logging.getLogger("one_tracker.server")
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
@@ -296,5 +296,5 @@ def _trigger_alert_async(product_id: int, current_price: float):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    print(f"\n  🏷️  Price Tracker running at http://localhost:{port}\n")
+    print(f"\n  ★  one_tracker running at http://localhost:{port}\n")
     app.run(host="0.0.0.0", port=port, debug=True)
