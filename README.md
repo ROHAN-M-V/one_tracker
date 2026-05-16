@@ -17,7 +17,7 @@ A full-stack price monitoring tool. Track e-commerce product prices, get email a
 ## Quick Start
 
 ```bash
-git clone https://github.com/your-username/one_tracker.git
+clone this repo 
 cd one_tracker
 pip install -r requirements.txt
 ```
